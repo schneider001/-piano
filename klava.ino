@@ -1,4 +1,5 @@
 #define ON_PRESS        1
+#define BUZZER_PIN      6
 
 class AmperkaKB
 {
@@ -95,21 +96,27 @@ void AmperkaKB::_findPressKeyNow() {
 AmperkaKB KB(13, 12, 11, 10, 9, 8, 7);
 
  
-void setup()
-{
+void setup() {
   Serial.begin(9600);
   KB.begin();
+  pinMode(BUZZER_PIN, OUTPUT);
 }
  
-void loop()
-{
+void loop() {
+    int frequency = 475.73 / 4;
     KB.read();
     if (KB.justPressed()) {
-        Serial.print("Key is press ");
-        Serial.print(KB.getNum);
-        Serial.print(" = \"");
-        Serial.print(KB.getChar);
-        Serial.println("\"");
+        int i = KB.getNum;
+        if (i == 0) {
+            i = 11;
+        }
+        if (i == 14) {
+            i = 10;
+        }
+        if (i == 15) {
+            i = 12;
+        }
+        Serial.println(i);
+        tone(BUZZER_PIN, frequency * pow(1.0595, i), 10);
     }
-  
 }
