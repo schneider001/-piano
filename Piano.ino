@@ -1,5 +1,4 @@
 #define ON_PRESS 1
-#define BUZZER_PIN 6
 
 #define LEDPIN 3
 
@@ -164,10 +163,8 @@ char wave[resolution];
 void setup()
 {
     piano.begin();
-    pinMode(BUZZER_PIN, OUTPUT);
 
     pinMode(LEDPIN, OUTPUT);
-    digitalWrite(LEDPIN, HIGH);
 
     // инициализация Timer1
     cli();  // отключить глобальные прерывания
